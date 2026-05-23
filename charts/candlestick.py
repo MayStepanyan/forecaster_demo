@@ -36,7 +36,7 @@ def build_chart(
     ))
 
     fig.add_vline(
-        x=forecast.index[0],
+        x=forecast.index[0].isoformat(),
         line_dash="dash",
         line_color="rgba(255,255,255,0.4)",
         annotation_text="Forecast →",
