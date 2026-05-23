@@ -41,6 +41,7 @@ def run_forecast(
         df=history[["open", "high", "low", "close", "volume"]],
         x_timestamp=pd.Series(history.index),
         y_timestamp=future_timestamps,
+        pred_len=horizon,
     )
 
     return forecast
