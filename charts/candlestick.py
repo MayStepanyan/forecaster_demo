@@ -35,12 +35,21 @@ def build_chart(
         opacity=0.8,
     ))
 
-    fig.add_vline(
-        x=forecast.index[0].isoformat(),
-        line_dash="dash",
-        line_color="rgba(255,255,255,0.4)",
-        annotation_text="Forecast →",
-        annotation_position="top right",
+    divider_x = forecast.index[0].isoformat()
+    fig.add_shape(
+        type="line",
+        x0=divider_x, x1=divider_x,
+        y0=0, y1=1,
+        yref="paper",
+        line=dict(dash="dash", color="rgba(255,255,255,0.4)"),
+    )
+    fig.add_annotation(
+        x=divider_x, y=1,
+        yref="paper",
+        text="Forecast →",
+        showarrow=False,
+        xanchor="left",
+        font=dict(color="rgba(255,255,255,0.6)"),
     )
 
     fig.update_layout(
