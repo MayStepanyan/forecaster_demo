@@ -4,6 +4,4 @@ pandas
 numpy
 yfinance
 torch
-transformers
-# Kronos — install from GitHub:
-# pip install git+https://github.com/Leegoo-dev/Kronos.git
+chronos-forecasting
