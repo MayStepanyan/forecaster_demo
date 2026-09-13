@@ -2,7 +2,6 @@ import streamlit as st
 from data.loader import fetch_ohlcv
 from forecast.predictor import run_forecast
 from charts.candlestick import build_chart
-from utils.rate_limit import check_rate_limit, consume_forecast
 
 st.set_page_config(page_title="Stock Forecaster", page_icon="📈", layout="wide")
 st.title("📈 Stock Forecaster")
@@ -13,9 +12,6 @@ with st.sidebar:
     interval = st.selectbox("Interval", ["1h", "1d", "1wk"], index=1)
     horizon = st.slider("Forecast candles", 5, 30, 20)
     context = st.slider("Historical context", 50, 512, 200)
-    st.divider()
-    allowed, remaining = check_rate_limit()
-    st.metric("Free forecasts remaining today", remaining)
     st.divider()
     st.markdown(
         "**Example tickers**\n"
@@ -29,12 +25,7 @@ ticker_input = st.text_input(
     placeholder="AAPL, SPY, ^GSPC...",
 )
 
-run_button = st.button("Generate Forecast", type="primary", disabled=not allowed)
-
-if not allowed:
-    st.warning("Daily limit reached (5 forecasts). Come back tomorrow.")
-
-if run_button and ticker_input:
+if st.button("Generate Forecast", type="primary") and ticker_input:
     ticker = ticker_input.strip().upper()
 
     with st.spinner(f"Fetching {ticker} data..."):
@@ -50,8 +41,6 @@ if run_button and ticker_input:
         except Exception as e:
             st.error(f"Forecast failed: {e}")
             st.stop()
-
-    consume_forecast()
 
     fig = build_chart(df, forecast, ticker=ticker)
     st.plotly_chart(fig, use_container_width=True)
