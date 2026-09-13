@@ -4,9 +4,9 @@ from forecast.predictor import run_forecast
 from charts.candlestick import build_chart
 from utils.rate_limit import check_rate_limit, consume_forecast
 
-st.set_page_config(page_title="Kronos Stock Forecaster", page_icon="📈", layout="wide")
-st.title("📈 Kronos Stock Forecaster")
-st.caption("AI-powered OHLCV forecasting for stocks, ETFs, and indices")
+st.set_page_config(page_title="Stock Forecaster", page_icon="📈", layout="wide")
+st.title("📈 Stock Forecaster")
+st.caption("AI-powered OHLCV forecasting using Chronos (Amazon) · stocks, ETFs, indices")
 
 with st.sidebar:
     st.header("Settings")
@@ -44,7 +44,7 @@ if run_button and ticker_input:
             st.error(str(e))
             st.stop()
 
-    with st.spinner("Running Kronos forecast..."):
+    with st.spinner("Running Chronos forecast..."):
         try:
             forecast = run_forecast(df, interval=interval, horizon=horizon, context_length=context)
         except Exception as e:

@@ -29,6 +29,11 @@ def fetch_ohlcv(ticker: str, interval: str = "1d") -> pd.DataFrame:
             "Check the ticker symbol — use ^ prefix for indices (e.g. ^GSPC)."
         )
 
+    # yfinance >= 0.2.38 returns MultiIndex columns like ('Open', 'AAPL')
+    # for single-ticker downloads; flatten to simple column names.
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.droplevel(1)
+
     df = data[["Open", "High", "Low", "Close", "Volume"]].copy()
     df.columns = ["open", "high", "low", "close", "volume"]
     df.index.name = "timestamp"

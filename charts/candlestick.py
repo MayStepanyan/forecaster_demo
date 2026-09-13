@@ -29,7 +29,7 @@ def build_chart(
         x=forecast.index,
         open=forecast["open"], high=forecast["high"],
         low=forecast["low"],   close=forecast["close"],
-        name="Forecast (Kronos)",
+        name="Forecast (Chronos)",
         increasing_line_color="#90caf9",
         decreasing_line_color="#ce93d8",
         opacity=0.8,
@@ -53,7 +53,7 @@ def build_chart(
     )
 
     fig.update_layout(
-        title=f"{ticker.upper()} — Kronos Forecast",
+        title=f"{ticker.upper()} — Chronos Forecast",
         xaxis_title="Date",
         yaxis_title="Price (USD)",
         template="plotly_dark",
